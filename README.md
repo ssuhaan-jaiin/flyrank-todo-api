@@ -4,12 +4,12 @@ A small CRUD API for managing a to-do list, built with FastAPI as part of the Fl
 
 ## Install & run
 
-\`\`\`bash
+```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload
-\`\`\`
+```
 
 The API runs at `http://localhost:8000`. Interactive docs (Swagger UI) at `http://localhost:8000/docs`.
 
@@ -27,16 +27,16 @@ The API runs at `http://localhost:8000`. Interactive docs (Swagger UI) at `http:
 
 ## Example request
 
-\`\`\`bash
+```bash
 curl -i -X POST http://localhost:8000/tasks -H "Content-Type: application/json" -d '{"title":"Buy milk"}'
-\`\`\`
+```
 
-\`\`\`
+```
 HTTP/1.1 201 Created
 content-type: application/json
 
 {"id":4,"title":"Buy milk","done":false}
-\`\`\`
+```
 
 ## Swagger UI
 
