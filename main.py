@@ -22,23 +22,23 @@ class TaskUpdate(BaseModel):
     done: Optional[bool] = None
 
 
-@app.get("/")
+@app.get("/", summary="API info")
 def read_root():
     return {"name": "Task API", "version": "1.0", "endpoints": ["/tasks"]}
 
 
-@app.get("/health")
+@app.get("/health", summary="Health check")
 def health_check():
     return {"status": "ok"}
 
 
-@app.get("/tasks")
+@app.get("/tasks", summary="List all tasks")
 def get_tasks():
     # returns the whole list, no filtering
     return tasks
 
 
-@app.get("/tasks/{task_id}")
+@app.get("/tasks/{task_id}", summary="Get a single task")
 def get_task(task_id: int):
     # task_id comes from the URL, auto-converted to int
     for task in tasks:
@@ -48,7 +48,7 @@ def get_task(task_id: int):
     return JSONResponse(status_code=404, content={"error": f"Task {task_id} not found"})
 
 
-@app.post("/tasks")
+@app.post("/tasks", summary="Create a task")
 def create_task(new_task: TaskCreate):
     # new_task is parsed from the request body automatically
     if not new_task.title.strip():
@@ -62,7 +62,7 @@ def create_task(new_task: TaskCreate):
     return JSONResponse(status_code=201, content=task)
 
 
-@app.put("/tasks/{task_id}")
+@app.put("/tasks/{task_id}", summary="Update a task")
 def update_task(task_id: int, updates: TaskUpdate):
     for task in tasks:
         if task["id"] == task_id:
@@ -81,7 +81,7 @@ def update_task(task_id: int, updates: TaskUpdate):
     return JSONResponse(status_code=404, content={"error": f"Task {task_id} not found"})
 
 
-@app.delete("/tasks/{task_id}")
+@app.delete("/tasks/{task_id}", summary="Delete a task")
 def delete_task(task_id: int):
     for task in tasks:
         if task["id"] == task_id:
